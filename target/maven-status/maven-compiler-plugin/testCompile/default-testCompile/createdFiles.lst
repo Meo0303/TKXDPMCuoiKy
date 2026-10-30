@@ -1,0 +1,6 @@
+starter\CucumberTestSuite.class
+starter\unittests\DatValiServiceTest.class
+starter\unittests\InMemoryDBMockTest.class
+starter\stepdefinitions\DatValiStepDefinitions.class
+starter\unittests\SimplePresenterTest.class
+starter\unittests\SuitcaseOrderTest.class

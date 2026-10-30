@@ -1,0 +1,16 @@
+starter\SuitcaseOrder.class
+starter\DatValiService.class
+starter\Publisher.class
+starter\DatValiController.class
+starter\Subscriber.class
+starter\DatValiGUIView$1.class
+starter\StoreAble.class
+starter\DatValiGUIView.class
+starter\DatValiOutputDTO.class
+starter\InMemoryDBMock.class
+starter\CheckBulkOrderService.class
+starter\AppDatVali.class
+starter\PresentAble.class
+starter\ResultGUIView.class
+starter\DatValiModelDTO.class
+starter\SimplePresenter.class

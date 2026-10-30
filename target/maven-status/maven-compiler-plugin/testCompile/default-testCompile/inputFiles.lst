@@ -1,3 +1,6 @@
-D:\code TKXDPM\src\test\java\com\vietluggage\order\RunCucumberLivingDocTest.java
-D:\code TKXDPM\src\test\java\com\vietluggage\order\SuitcaseOrderGlueCode.java
-D:\code TKXDPM\src\test\java\com\vietluggage\order\SuitcaseOrderUnitTest.java
+D:\code TKXDPM\src\test\java\starter\CucumberTestSuite.java
+D:\code TKXDPM\src\test\java\starter\unittests\InMemoryDBMockTest.java
+D:\code TKXDPM\src\test\java\starter\unittests\DatValiServiceTest.java
+D:\code TKXDPM\src\test\java\starter\unittests\SimplePresenterTest.java
+D:\code TKXDPM\src\test\java\starter\unittests\SuitcaseOrderTest.java
+D:\code TKXDPM\src\test\java\starter\stepdefinitions\DatValiStepDefinitions.java
