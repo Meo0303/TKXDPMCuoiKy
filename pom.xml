@@ -156,6 +156,7 @@
                     <tags>${tags}</tags>
                     <reports>single-page-html</reports>
                     <generateFullReport>true</generateFullReport>
+                    <generateFullReport>true</generateFullReport>
                 </configuration>
                 <dependencies>
                     <dependency>
@@ -177,3 +178,4 @@
         </plugins>
     </build>
 </project>
+

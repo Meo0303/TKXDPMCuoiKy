@@ -12,26 +12,70 @@ import starter.DatValiModelDTO;
 import starter.DatValiOutputDTO;
 import starter.DatValiService;
 
-@DisplayName("Khi dịch vụ đặt mua vali thực thi")
+@DisplayName("Khi dịch vụ đặt mua vali thực thi đầy đủ các trường hợp")
 public class DatValiServiceTest {
+
     @Test
-    void testExecute() {
-        // Given
-        double quantity = 4, unitPrice = 100;
+    void testExecute_RetailOrderSuccess() {
+        // Given: Đặt mua lẻ 2 chiếc
         DatValiModelDTO modelDTO = new DatValiModelDTO();
         SimplePresenter presenter = new SimplePresenter(modelDTO);
-        ArrayList<Double> memoryDB = new ArrayList<>();
-        InMemoryDBMock mockDB = new InMemoryDBMock(memoryDB);
+        InMemoryDBMock mockDB = new InMemoryDBMock(new ArrayList<>());
         DatValiService datValiService = new DatValiService(mockDB, presenter);
         // When
-        DatValiOutputDTO datValiOutputDTO = datValiService.execute(quantity, unitPrice);
+        DatValiOutputDTO outputDTO = datValiService.execute(2, 100);
         // Then
-        assertEquals(360, datValiOutputDTO.actualResult);
-        // true: red (>= 3 vali)
-        // false: pink (< 3 vali)
-        assertEquals("red", modelDTO.actualColor);
-        assertEquals(true, datValiOutputDTO.bulkOrder);
-        assertEquals(true, datValiOutputDTO.actualSaveStatus);
+        assertEquals(200, outputDTO.actualResult);
+        assertEquals("pink", modelDTO.actualColor);
+        assertEquals(false, outputDTO.bulkOrder);
+        assertEquals(true, outputDTO.actualSaveStatus);
+    }
 
+    @Test
+    void testExecute_BulkOrderSuccess() {
+        // Given: Đặt mua nhóm 4 chiếc (giảm 10%)
+        DatValiModelDTO modelDTO = new DatValiModelDTO();
+        SimplePresenter presenter = new SimplePresenter(modelDTO);
+        InMemoryDBMock mockDB = new InMemoryDBMock(new ArrayList<>());
+        DatValiService datValiService = new DatValiService(mockDB, presenter);
+        // When
+        DatValiOutputDTO outputDTO = datValiService.execute(4, 100);
+        // Then
+        assertEquals(360, outputDTO.actualResult);
+        assertEquals("red", modelDTO.actualColor);
+        assertEquals(true, outputDTO.bulkOrder);
+        assertEquals(true, outputDTO.actualSaveStatus);
+    }
+
+    @Test
+    void testExecute_ExceedLimitFailed() {
+        // Given: Đặt vượt quá 20 chiếc (25 chiếc)
+        DatValiModelDTO modelDTO = new DatValiModelDTO();
+        SimplePresenter presenter = new SimplePresenter(modelDTO);
+        InMemoryDBMock mockDB = new InMemoryDBMock(new ArrayList<>());
+        DatValiService datValiService = new DatValiService(mockDB, presenter);
+        // When
+        DatValiOutputDTO outputDTO = datValiService.execute(25, 100);
+        // Then
+        assertEquals(-1, outputDTO.actualResult);
+        assertEquals("gray", modelDTO.actualColor);
+        assertEquals(false, outputDTO.actualSaveStatus);
+        assertEquals(0, mockDB.getMockDB().size());
+    }
+
+    @Test
+    void testExecute_InvalidInputFailed() {
+        // Given: Số lượng <= 0
+        DatValiModelDTO modelDTO = new DatValiModelDTO();
+        SimplePresenter presenter = new SimplePresenter(modelDTO);
+        InMemoryDBMock mockDB = new InMemoryDBMock(new ArrayList<>());
+        DatValiService datValiService = new DatValiService(mockDB, presenter);
+        // When
+        DatValiOutputDTO outputDTO = datValiService.execute(0, 100);
+        // Then
+        assertEquals(-1, outputDTO.actualResult);
+        assertEquals("gray", modelDTO.actualColor);
+        assertEquals(false, outputDTO.actualSaveStatus);
+        assertEquals(0, mockDB.getMockDB().size());
     }
 }

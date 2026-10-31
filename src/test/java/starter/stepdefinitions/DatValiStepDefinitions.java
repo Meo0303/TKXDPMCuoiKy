@@ -21,12 +21,20 @@ public class DatValiStepDefinitions {
 
     @ParameterType(".*")
     public double quantity(String str) {
-        return Double.parseDouble(str);
+        try {
+            return Double.parseDouble(str.trim());
+        } catch (Exception e) {
+            return -1;
+        }
     }
 
     @ParameterType(".*")
     public double unit_price(String str) {
-        return Double.parseDouble(str);
+        try {
+            return Double.parseDouble(str.trim());
+        } catch (Exception e) {
+            return -1;
+        }
     }
 
     DatValiOutputDTO datValiOutputDTO;
@@ -54,17 +62,17 @@ public class DatValiStepDefinitions {
 
     @ParameterType(".*")
     public double result(String str) {
-        return Double.parseDouble(str);
+        return Double.parseDouble(str.trim());
     }
 
     @ParameterType(".*")
     public String color(String str) {
-        return str;
+        return str.trim();
     }
 
     @ParameterType(".*")
     public boolean save_result(String str) {
-        return Boolean.parseBoolean(str);
+        return Boolean.parseBoolean(str.trim());
     }
 
     @Then("tôi được thông báo giá trị là {result} {color}")
@@ -82,7 +90,7 @@ public class DatValiStepDefinitions {
 
     @ParameterType(".*")
     public String current_date(String str) {
-        return str;
+        return str.trim();
     }
 
     @And("ngày hiện tại {current_date}")
