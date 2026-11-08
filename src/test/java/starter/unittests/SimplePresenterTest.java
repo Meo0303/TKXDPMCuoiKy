@@ -1,63 +1,56 @@
 package starter.unittests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import org.junit.jupiter.api.Test;
 import starter.SimplePresenter;
-import starter.DatValiModelDTO;
-import starter.DatValiOutputDTO;
+import starter.DatQuanAoModelDTO;
+import starter.DatQuanAoOutputDTO;
 
 public class SimplePresenterTest {
+    private String getToday() {
+        return new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+    }
 
     @Test
-    void testFormat_RetailOrderPink() {
-        // Given: Đơn mua lẻ (< 3 chiếc)
-        DatValiOutputDTO outputDTO = new DatValiOutputDTO();
-        outputDTO.actualResult = 200;
+    void testFormat_StandardOrderPink() {
+        DatQuanAoOutputDTO outputDTO = new DatQuanAoOutputDTO();
+        outputDTO.actualResult = 230;
         outputDTO.actualSaveStatus = true;
-        outputDTO.bulkOrder = false;
-
-        DatValiModelDTO modelDTO = new DatValiModelDTO();
+        outputDTO.priorityOrder = false;
+        DatQuanAoModelDTO modelDTO = new DatQuanAoModelDTO();
         SimplePresenter presenter = new SimplePresenter(modelDTO);
-        // When
         presenter.format(outputDTO);
-        // Then
-        assertEquals("31/10/2026", modelDTO.VNDate);
+        assertEquals(getToday(), modelDTO.VNDate);
         assertEquals("pink", modelDTO.actualColor);
-        assertEquals("200.0", modelDTO.presentResult);
+        assertEquals("230.0", modelDTO.presentResult);
     }
 
     @Test
-    void testFormat_BulkOrderRed() {
-        // Given: Đơn mua nhóm (>= 3 chiếc)
-        DatValiOutputDTO outputDTO = new DatValiOutputDTO();
-        outputDTO.actualResult = 360;
+    void testFormat_PriorityOrderRed() {
+        DatQuanAoOutputDTO outputDTO = new DatQuanAoOutputDTO();
+        outputDTO.actualResult = 600;
         outputDTO.actualSaveStatus = true;
-        outputDTO.bulkOrder = true;
-
-        DatValiModelDTO modelDTO = new DatValiModelDTO();
+        outputDTO.priorityOrder = true;
+        DatQuanAoModelDTO modelDTO = new DatQuanAoModelDTO();
         SimplePresenter presenter = new SimplePresenter(modelDTO);
-        // When
         presenter.format(outputDTO);
-        // Then
-        assertEquals("31/10/2026", modelDTO.VNDate);
+        assertEquals(getToday(), modelDTO.VNDate);
         assertEquals("red", modelDTO.actualColor);
-        assertEquals("360.0", modelDTO.presentResult);
+        assertEquals("600.0", modelDTO.presentResult);
     }
 
     @Test
-    void testFormat_InvalidOrderGray() {
-        // Given: Đơn không hợp lệ (actualResult = -1)
-        DatValiOutputDTO outputDTO = new DatValiOutputDTO();
+    void testFormat_RejectedOrderGray() {
+        DatQuanAoOutputDTO outputDTO = new DatQuanAoOutputDTO();
         outputDTO.actualResult = -1;
         outputDTO.actualSaveStatus = false;
-        outputDTO.bulkOrder = false;
-
-        DatValiModelDTO modelDTO = new DatValiModelDTO();
+        outputDTO.priorityOrder = false;
+        DatQuanAoModelDTO modelDTO = new DatQuanAoModelDTO();
         SimplePresenter presenter = new SimplePresenter(modelDTO);
-        // When
         presenter.format(outputDTO);
-        // Then
-        assertEquals("31/10/2026", modelDTO.VNDate);
+        assertEquals(getToday(), modelDTO.VNDate);
         assertEquals("gray", modelDTO.actualColor);
         assertEquals("-1.0", modelDTO.presentResult);
     }

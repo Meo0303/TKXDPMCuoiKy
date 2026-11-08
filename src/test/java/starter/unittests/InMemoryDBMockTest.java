@@ -1,28 +1,19 @@
 package starter.unittests;
 
-import org.junit.jupiter.api.Test;
-
-import starter.InMemoryDBMock;
-import static org.junit.jupiter.api.Assertions.*;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
+import org.junit.jupiter.api.Test;
+import starter.InMemoryDBMock;
 
 public class InMemoryDBMockTest {
     @Test
     void testSave() {
-        // Given
         ArrayList<Double> mockDB = new ArrayList<>();
-
-        // double
-        // size = 0
-        double actualResult = 360;
+        double actualResult = 500;
         InMemoryDBMock storeAble = new InMemoryDBMock(mockDB);
-        // When
         boolean actualSaveStatus = storeAble.save(actualResult);
-        // Then
         int actualSize = storeAble.getMockDB().size();
         assertEquals(true, actualSaveStatus);
         assertEquals(1, actualSize);
-
     }
 }

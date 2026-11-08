@@ -1,9 +1,7 @@
 package starter.stepdefinitions;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 import java.util.ArrayList;
-
 import io.cucumber.java.ParameterType;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -21,25 +19,16 @@ public class DatValiStepDefinitions {
 
     @ParameterType(".*")
     public double quantity(String str) {
-        try {
-            return Double.parseDouble(str.trim());
-        } catch (Exception e) {
-            return -1;
-        }
+        try { return Double.parseDouble(str.trim()); } catch (Exception e) { return -1; }
     }
 
     @ParameterType(".*")
     public double unit_price(String str) {
-        try {
-            return Double.parseDouble(str.trim());
-        } catch (Exception e) {
-            return -1;
-        }
+        try { return Double.parseDouble(str.trim()); } catch (Exception e) { return -1; }
     }
 
     DatValiOutputDTO datValiOutputDTO;
     private double quantity, unitPrice;
-
     private StoreAble storeAble;
     private PresentAble presentAble;
     private DatValiModelDTO modelDTO = new DatValiModelDTO();
@@ -49,7 +38,6 @@ public class DatValiStepDefinitions {
     public void thiet_lap_ngu_canh(double quantity, double unitPrice) {
         this.quantity = quantity;
         this.unitPrice = unitPrice;
-
         this.storeAble = new InMemoryDBMock(memoryDB);
         this.presentAble = new SimplePresenter(modelDTO);
     }
@@ -61,41 +49,30 @@ public class DatValiStepDefinitions {
     }
 
     @ParameterType(".*")
-    public double result(String str) {
-        return Double.parseDouble(str.trim());
-    }
+    public double result(String str) { return Double.parseDouble(str.trim()); }
 
     @ParameterType(".*")
-    public String color(String str) {
-        return str.trim();
-    }
+    public String color(String str) { return str.trim(); }
 
     @ParameterType(".*")
-    public boolean save_result(String str) {
-        return Boolean.parseBoolean(str.trim());
-    }
+    public boolean save_result(String str) { return Boolean.parseBoolean(str.trim()); }
 
     @Then("tôi được thông báo giá trị là {result} {color}")
     public void duoc_thong_bao(double expectedResult, String expectedColor) {
         assertEquals(expectedResult, datValiOutputDTO.actualResult);
         assertEquals(expectedColor, modelDTO.actualColor);
-
     }
 
     @And("lưu kết quả {save_result}")
     public void luu_ket_qua(boolean expectedSaveStatus) {
         assertEquals(expectedSaveStatus, datValiOutputDTO.actualSaveStatus);
-
     }
 
     @ParameterType(".*")
-    public String current_date(String str) {
-        return str.trim();
-    }
+    public String current_date(String str) { return str.trim(); }
 
     @And("ngày hiện tại {current_date}")
     public void ngay_hien_tai(String expectedDate) {
         assertEquals(expectedDate, modelDTO.VNDate);
     }
-
 }
